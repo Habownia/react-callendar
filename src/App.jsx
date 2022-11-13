@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import callendar from './callendar';
 
+import GlobalStyles from './components/styles/GlobalStyles';
 import AppStyle from './components/styles/AppStyle';
 import CallendarPage from './components/CallendarPage';
 
@@ -26,7 +27,12 @@ function App() {
 	const pages = objectMap();
 	const month = Object.keys(callendar)[monthIndex];
 
-	return <AppStyle>{pages[month]}</AppStyle>;
+	return (
+		<AppStyle>
+			<GlobalStyles />
+			{pages[month]}
+		</AppStyle>
+	);
 }
 
 export default App;

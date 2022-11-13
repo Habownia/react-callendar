@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 
-const animatedgradient = keyframes`
+export const animatedgradient = keyframes`
 	0% {
 		background-position: 0% 50%;
 	}
@@ -12,7 +12,6 @@ const animatedgradient = keyframes`
 	}
 `;
 
-
 const Skeleton = styled.div`
 	width: 50rem;
 
@@ -20,7 +19,7 @@ const Skeleton = styled.div`
 	--borderWidth: 3px;
 
 	min-height: 10rem;
-	background: #1d1f20;
+	background: var(--bgCallendar);
 	position: relative;
 	border-radius: var(--borderWidth);
 

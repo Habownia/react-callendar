@@ -5,7 +5,7 @@ import callendar from '../callendar';
 import Skeleton from './styles/Skeleton';
 import { Header, Arrow, Hidden } from './styles/Header';
 import { Day, DayContainer, DaysOfWeek } from './styles/Day';
-import { InputContainer } from './styles/Input';
+import { InputsContainer, Input } from './styles/Input';
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
@@ -92,13 +92,19 @@ function CallendarPage(props) {
 							/>
 						</Arrow>
 					</Header>
-					<InputContainer>
-						<div>
-							Thing: <input type='text' />
-						</div>
-						<div>
-							Volume: <input type='text' />
-						</div>
+					<InputsContainer>
+						<Input>
+							<label htmlFor='thing'>
+								Thing <span>*</span>
+							</label>
+							<input type='text' id='thing' placeholder='Input text' />
+						</Input>
+						<Input>
+							<label htmlFor='volume'>
+								Volume <span>*</span>
+							</label>
+							<input type='text' id='volume' placeholder='Input text' />
+						</Input>
 						<button
 							onClick={() => {
 								// nie można dodać do zmiennej bo już będzie zdefiniowana
@@ -121,7 +127,7 @@ function CallendarPage(props) {
 							Remove
 						</button>
 						<button onClick={() => setInputPage(false)}>Cancel</button>
-					</InputContainer>
+					</InputsContainer>
 				</Skeleton>
 			)}
 		</>

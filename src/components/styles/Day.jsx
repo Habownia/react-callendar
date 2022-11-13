@@ -1,4 +1,6 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
+
+import { animatedgradient } from './Skeleton';
 
 export const Day = styled.div`
 	// jeśli w danym dniu znajdusie się jakaś zawartość to zmienia bgc
@@ -11,13 +13,13 @@ export const Day = styled.div`
 	cursor: pointer;
 
 	&:hover {
-		border-radius: 5%;
-		border: 10px solid;
-		// gradientowy border
-		border-image-slice: 1;
-		border-width: 4px;
-		border-image-source: linear-gradient(to left, #5073b8, #1098ad);
-		mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+		border-radius: 10px;
+		// gradientowy border z radiusem
+		border: 3px double transparent;
+		background-image: linear-gradient(var(--bgCallendar), var(--bgCallendar)),
+			linear-gradient(to right, #5073b8, #1098ad);
+		background-origin: border-box;
+		background-clip: padding-box, border-box;
 	}
 `;
 
@@ -28,12 +30,6 @@ export const DayContainer = styled.div`
 	grid-template-rows: repeat(6, 1fr);
 	grid-column-gap: 0px;
 	grid-row-gap: 0px;
-`;
-
-const shine = keyframes`
-	to {
-		background-position: -200% center;
-	}
 `;
 
 export const DaysOfWeek = styled.div`
@@ -51,7 +47,7 @@ export const DaysOfWeek = styled.div`
 	text-align: center;
 
 	background: linear-gradient(
-		120deg,
+		60deg,
 		#f79533,
 		#f37055,
 		#ef4e7b,
@@ -59,9 +55,7 @@ export const DaysOfWeek = styled.div`
 		#5073b8,
 		#1098ad,
 		#07b39b,
-		#6fba82,
-		#f79533,
-		#f37055
+		#6fba82
 	);
 	background-size: 200% auto;
 
@@ -71,5 +65,5 @@ export const DaysOfWeek = styled.div`
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 
-	animation: ${shine} 5.5s linear infinite;
+	animation: ${animatedgradient} 5s ease alternate infinite;
 `;
