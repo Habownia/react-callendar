@@ -42,6 +42,7 @@ export const Input = styled.div`
 		border: double 3px transparent;
 		border-radius: 5px;
 		background-color: var(--bgInput);
+		transition: scale linear 0.2s;
 
 		&::placeholder {
 			color: #cdcdcd;
@@ -49,7 +50,6 @@ export const Input = styled.div`
 
 		&:focus {
 			border: double 3px transparent;
-			border-radius: 6px;
 			background-image: linear-gradient(var(--bgInput), var(--bgInput)),
 				linear-gradient(to right, #fe5f75, #fc9842);
 			background-origin: border-box;
@@ -57,6 +57,10 @@ export const Input = styled.div`
 			&::placeholder {
 				color: #f3f3f3;
 			}
+		}
+
+		&:hover {
+			scale: 1.05;
 		}
 	}
 `;

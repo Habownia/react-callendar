@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { animatedgradient } from './Skeleton';
 
 export const Day = styled.div`
-	// jeśli w danym dniu znajdusie się jakaś zawartość to zmienia bgc
+	// jeśli w danym dniu znaduje się jakaś zawartość to zmienia bgc
 	background-color: ${(props) => (props.elem ? '#444' : '')};
-	grid-column: ${(props) => (props.index == 0 ? props.whereToStart : '')};
+	grid-column: ${(props) => (props.index === 0 ? props.whereToStart : '')};
 	display: flex;
 	justify-content: center;
 	align-items: center;

@@ -10,18 +10,16 @@ function App() {
 
 	const objectMap = () =>
 		Object.fromEntries(
-			Object.entries(callendar).map(([key, value], index) => {
-				return [
-					key,
-					<CallendarPage
-						value={value}
-						monthName={key}
-						index={index}
-						setMonthIndex={setMonthIndex}
-						monthIndex={monthIndex}
-					/>,
-				];
-			})
+			Object.entries(callendar).map(([key, value], index) => [
+				key,
+				<CallendarPage
+					value={value}
+					monthName={key}
+					index={index}
+					setMonthIndex={setMonthIndex}
+					monthIndex={monthIndex}
+				/>,
+			])
 		);
 
 	const pages = objectMap();

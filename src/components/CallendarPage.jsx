@@ -1,70 +1,77 @@
 import { useState } from 'react';
 
-import callendar from '../callendar';
-
-import Skeleton from './styles/Skeleton';
-import { Header, Arrow, Hidden } from './styles/Header';
-import { Day, DayContainer, DaysOfWeek } from './styles/Day';
-import { InputsContainer, Input } from './styles/Input';
-
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
+import FormCallendar from './formCallendar';
+
+import Skeleton from './styles/Skeleton';
+import { Header, Arrow } from './styles/Header';
+import { Day, DayContainer, DaysOfWeek } from './styles/Day';
+
 function CallendarPage(props) {
-	const [inputPage, setInputPage] = useState(true);
+	const [inputPage, setInputPage] = useState(false);
 	const [day, setDay] = useState(0);
 
+	// po kliknięciu w dzień ustawia się state
 	function addDay(e) {
 		setInputPage(true);
 		const dayNum = e.target.innerText;
 		setDay(dayNum);
 	}
 
+	// oblicza na jaki dzień tygodnia wypada 1 miesiąca
 	const firstDayInMonthIndex = (
 		year = new Date().getFullYear(),
 		monthIndex = props.index
 	) => new Date(`${year}-${monthIndex + 1}-01`).getDay();
 
-	const squares = [...props.value].map((elem, index) => {
-		return (
-			<Day
-				key={index}
-				elem={elem}
-				index={index}
-				onClick={addDay}
-				whereToStart={firstDayInMonthIndex()}
-			>
-				{index + 1}
-			</Day>
-		);
-	});
+	// tworzy kwadraty z dniami
+	const squares = [...props.value].map((elem, index) => (
+		<Day
+			key={index}
+			elem={elem}
+			index={index}
+			onClick={addDay}
+			whereToStart={firstDayInMonthIndex()}
+		>
+			{index + 1}
+		</Day>
+	));
 
 	return (
 		<>
-			{!inputPage && (
+			{inputPage ? (
+				<FormCallendar
+					inputPage={inputPage}
+					setInputPage={setInputPage}
+					monthName={props.monthName}
+					day={day}
+				/>
+			) : (
 				<Skeleton>
 					<Header>
-						<Arrow visible={props.index > 0 ? true : false}>
+						<Arrow visible={props.index > 0}>
 							<AiOutlineArrowLeft
 								size={40}
-								onClick={() => {
+								onClick={() =>
 									// przez ułamek sekundy można było zmienić miesiąc na -1
 									props.monthIndex > 0
 										? props.setMonthIndex((prev) => prev - 1)
-										: '';
-								}}
+										: ''
+								}
 							/>
 						</Arrow>
 						<h1>
 							{props.monthName} {new Date().getFullYear()}
 						</h1>
-						<Arrow visible={props.index < 11 ? true : false}>
+						<Arrow visible={props.index < 11}>
 							<AiOutlineArrowRight
 								size={40}
-								onClick={() => {
+								onClick={() =>
 									props.monthIndex < 11
 										? props.setMonthIndex((prev) => prev + 1)
-										: '';
-								}}
+										: ''
+								}
 							/>
 						</Arrow>
 					</Header>
@@ -78,56 +85,6 @@ function CallendarPage(props) {
 						<p>Sun</p>
 					</DaysOfWeek>
 					<DayContainer>{squares}</DayContainer>
-				</Skeleton>
-			)}
-			{inputPage && (
-				<Skeleton>
-					<Header>
-						<Hidden />
-						<h1>Enter your thing</h1>
-						<Arrow visible={true}>
-							<AiOutlineArrowLeft
-								size={40}
-								onClick={() => setInputPage(false)}
-							/>
-						</Arrow>
-					</Header>
-					<InputsContainer>
-						<Input>
-							<label htmlFor='thing'>
-								Thing <span>*</span>
-							</label>
-							<input type='text' id='thing' placeholder='Input text' />
-						</Input>
-						<Input>
-							<label htmlFor='volume'>
-								Volume <span>*</span>
-							</label>
-							<input type='text' id='volume' placeholder='Input text' />
-						</Input>
-						<button
-							onClick={() => {
-								// nie można dodać do zmiennej bo już będzie zdefiniowana
-								if (callendar[props.monthName][day - 1] !== undefined) {
-									callendar[props.monthName][day - 1] = undefined;
-								} else {
-									callendar[props.monthName][day - 1] = 'Done';
-								}
-								setInputPage(false);
-							}}
-						>
-							Save
-						</button>
-						<button
-							onClick={() => {
-								callendar[props.monthName][day - 1] = undefined;
-								setInputPage(false);
-							}}
-						>
-							Remove
-						</button>
-						<button onClick={() => setInputPage(false)}>Cancel</button>
-					</InputsContainer>
 				</Skeleton>
 			)}
 		</>
