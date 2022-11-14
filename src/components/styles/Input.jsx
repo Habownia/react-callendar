@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
-export const InputsContainer = styled.div`
+export const Form = styled.form`
 	display: flex;
 	flex-direction: column;
-	margin: 3rem;
+	align-items: center;
+	/* justify-content: center; */
+	padding: 4rem 3rem;
 	gap: 3rem;
 
 	button {
@@ -62,5 +64,26 @@ export const Input = styled.div`
 		&:hover {
 			scale: 1.05;
 		}
+	}
+`;
+
+export const ButtonContainer = styled.div`
+	display: flex;
+	gap: 1rem;
+
+	button {
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		gap: 0.5rem;
+		min-width: 10rem;
+	}
+
+	.save {
+		background-color: green;
+	}
+
+	.remove {
+		background-color: red;
 	}
 `;

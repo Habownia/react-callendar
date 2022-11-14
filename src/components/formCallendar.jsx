@@ -2,12 +2,14 @@ import { useEffect } from 'react';
 import { useFormik } from 'formik';
 
 import { AiOutlineArrowLeft } from 'react-icons/ai';
+import { TbDeviceFloppy } from 'react-icons/tb';
+import { MdRemoveCircle } from 'react-icons/md';
 
 import callendar from '../callendar';
 
 import Skeleton from './styles/Skeleton';
 import { Header, Arrow, Hidden } from './styles/Header';
-import { InputsContainer, Input } from './styles/Input';
+import { Form, Input, ButtonContainer } from './styles/Input';
 
 function FormCallendar({ inputPage, setInputPage, monthName, day }) {
 	const dayPath = callendar[monthName][day - 1];
@@ -23,7 +25,6 @@ function FormCallendar({ inputPage, setInputPage, monthName, day }) {
 				volume: values.volume,
 			};
 			setInputPage(false);
-			// formik.resetForm(); <-- chyba nie potrzebne ale zostawie
 		},
 	});
 
@@ -46,49 +47,52 @@ function FormCallendar({ inputPage, setInputPage, monthName, day }) {
 					<AiOutlineArrowLeft size={40} onClick={() => setInputPage(false)} />
 				</Arrow>
 			</Header>
-			<form onSubmit={formik.handleSubmit}>
-				<InputsContainer>
-					<Input>
-						<label htmlFor='thing'>
-							Thing <span>*</span>
-						</label>
-						<input
-							type='text'
-							id='thing'
-							placeholder='Input text'
-							onChange={formik.handleChange}
-							value={formik.values.thing}
-						/>
-					</Input>
-					<Input>
-						<label htmlFor='volume'>
-							Volume <span>*</span>
-						</label>
-						<input
-							type='text'
-							id='volume'
-							placeholder='Input text'
-							onChange={formik.handleChange}
-							value={formik.values.volume}
-						/>
-					</Input>
-					<button type='submit' onClick={() => {}}>
+			<Form onSubmit={formik.handleSubmit}>
+				<Input>
+					<label htmlFor='thing'>
+						Thing <span>*</span>
+					</label>
+					<input
+						type='text'
+						id='thing'
+						placeholder='Input text'
+						onChange={formik.handleChange}
+						value={formik.values.thing}
+					/>
+				</Input>
+				<Input>
+					<label htmlFor='volume'>
+						Volume <span>*</span>
+					</label>
+					<input
+						type='text'
+						id='volume'
+						placeholder='Input text'
+						onChange={formik.handleChange}
+						value={formik.values.volume}
+					/>
+				</Input>
+				<ButtonContainer>
+					<button type='submit' className='save'>
+						<TbDeviceFloppy />
 						Save
 					</button>
 					<button
 						type='button'
+						className='remove'
 						onClick={() => {
 							callendar[monthName][day - 1] = undefined;
 							setInputPage(false);
 						}}
 					>
+						<MdRemoveCircle />
 						Remove
 					</button>
-					<button type='button' onClick={() => setInputPage(false)}>
-						Cancel
-					</button>
-				</InputsContainer>
-			</form>
+					{/* <button type='button' onClick={() => setInputPage(false)}>
+							Cancel
+						</button> */}
+				</ButtonContainer>
+			</Form>
 		</Skeleton>
 	);
 }

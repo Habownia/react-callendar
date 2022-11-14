@@ -14,11 +14,11 @@ export const animatedgradient = keyframes`
 
 const Skeleton = styled.div`
 	width: 50rem;
+	min-height: 43rem;
 
 	// kręcący się border
 	--borderWidth: 3px;
 
-	min-height: 10rem;
 	background: var(--bgCallendar);
 	position: relative;
 	border-radius: var(--borderWidth);
