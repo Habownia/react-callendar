@@ -20,10 +20,12 @@ function FormCallendar({ inputPage, setInputPage, monthName, day }) {
 			volume: '',
 		},
 		onSubmit: (values) => {
-			callendar[monthName][day - 1] = {
-				thing: values.thing,
-				volume: values.volume,
-			};
+			if (!(values.thing === '' && values.volume === '')) {
+				callendar[monthName][day - 1] = {
+					thing: values.thing,
+					volume: values.volume,
+				};
+			}
 			setInputPage(false);
 		},
 	});
